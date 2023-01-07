@@ -5,6 +5,9 @@ const http = require('http');
 const { initDB } = require('./database');
 
 const app = express()
+const server = http.createServer(app)
 
-http.createServer(app).listen(3001);
+const sio = require('socket.io')(server)
+
+server.listen(3001)
 initDB()
