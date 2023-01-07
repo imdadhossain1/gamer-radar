@@ -15,6 +15,29 @@ const Genres = sequelize.define('Genres', {
   allowNull: false
 })
 
+const User = sequelize.define('User', {
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  password: {
+    type: DataTypes.STRING, // I am aware that Storing passwords as plain strings is usually a really bad idea
+    allowNull: false
+  },
+  favoriteGameGenres: {
+    type: DataTypes.ARRAY(DataTypes.BIGINT)
+  },
+  preferredFOC: {
+    type: DataTypes.STRING
+  },
+  pastParties: {
+    type: DataTypes.ARRAY(DataTypes.BIGINT)
+  },
+  intProfiles: {
+    type: DataTypes.ARRAY(DataTypes.BIGINT)
+  }
+})
+
 module.exports.initDB = async () => {
   try {
     await sequelize.authenticate()
