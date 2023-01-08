@@ -24,4 +24,17 @@ router.post('/register', async (req, res) => {
   }
 })
 
+router.post('/login', async(req, res) => {
+  const { username, password } = req.body;
+  if(!username || !username) return res.status(400).send();
+
+  const user = await User.findOne({ where: { username, password }})
+  if(user.username) {
+    res.cookie('username', username)
+    return res.status(200).send()
+  } else {
+    return res.status(404).send()
+  }
+})
+
 module.exports = router;
