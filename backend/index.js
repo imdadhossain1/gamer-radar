@@ -4,13 +4,15 @@ const express = require('express')
 const http = require('http');
 const { initDB } = require('./database');
 
-const authRouter = require('./routes/auth.js')
+const authRouter = require('./routes/auth.js');
+const bodyParser = require("body-parser");
 
 const app = express()
 const server = http.createServer(app)
 
 const sio = require('socket.io')(server)
 
+app.use(bodyParser.json())
 app.use('/auth', authRouter)
 
 server.listen(3001)
