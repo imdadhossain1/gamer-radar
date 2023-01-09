@@ -30,20 +30,20 @@ export default function Login() {
   }
 
   return (
-    <>
+    <div className="page">
       <h1 className="gr">Gamer Radar</h1>
-      <div className="form">
+      <div className="form inpage">
         {loginFail &&
           <p>Invalid Username or Password</p>
         }
         {isLoggedIn &&
           <Navigate to='/'/>
         }
-        <input type='text' onChange={(e) => setUsername(e.target.value)}/>
-        <input type='password' onChange={(e) => setPassword(e.target.value)}/>
-        <button onClick={login}>Login</button>
+        <input required type='text' onChange={(e) => setUsername(e.target.value)} className="form-inp" />
+        <input required type='password' onChange={(e) => setPassword(e.target.value)} className="form-inp" />
+        <button onClick={login} className="form-btn">Login</button>
         <Link to='/auth/register'>No account? Register</Link>
       </div>
-    </>
+    </div>
   )
 }

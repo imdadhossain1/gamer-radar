@@ -51,4 +51,10 @@ router.get('/:username', async(req, res) => {
   }
 })
 
+router.patch(async(req, res) => {
+  const { favoriteGameGenres, preferredFOC } = req.body
+
+  await User.update({ favoriteGameGenres, preferredFOC }, { where: { username: req.cookies.username }}) 
+})
+
 module.exports = router

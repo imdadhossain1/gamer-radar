@@ -22,10 +22,61 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+}
+
+.form-inp {
+  max-width: 450px;
+  border-radius: 5px;
+  background-color: grey;
+}
+
+.form-btn {
+  background-color: aliceblue;
+  color: #61dafb;
+}
+
+* {
+  color: white;
+}
+
+.page {
+  background-color: black;
+
+}
+
+.inpage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body {
+  background-color: black;
+}
+
+button {
+  color: #7703fc;
+}
+
+#nav {
+  display: flex;
+  flex-direction: row;
+}
+
+#inp-cre {
+  color: black;
+}
+
+.th {
+  background-color: rgba(147, 153, 149, 0.4);
 }

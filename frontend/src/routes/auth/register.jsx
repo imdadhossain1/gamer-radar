@@ -35,20 +35,20 @@ export default function Register() {
   }
 
   return (
-    <>
+    <div className="page">
       <h1 className="gr">Gamer Radar</h1>
-      <div className="form">
+      <div className="form inpage">
         {registerFail &&
           <p>Username taken!</p>
         }
         {isLoggedIn &&
           <Navigate to='/'/>
         }
-        <input type='text' onChange={(e) => setUsername(e.target.value)}/>
-        <input type='password' onChange={(e) => setPassword(e.target.value)}/>
-        <button onClick={register}>Register</button>
+        <input required type='text' onChange={(e) => setUsername(e.target.value)} className="form-inp"/>
+        <input required type='password' onChange={(e) => setPassword(e.target.value)} className="form-inp"/>
+        <button onClick={register} className="form-btn">Register</button>
         <Link to='/auth/login'>Already have an account?</Link>
       </div>
-    </>
+    </div>
   )
 }

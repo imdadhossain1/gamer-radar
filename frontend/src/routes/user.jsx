@@ -23,7 +23,7 @@ export default function User() {
   }, [])
 
   if(cookies.username == user) return <Navigate to='/me' />
-  return <>
+  return <div className="page">
     {userInfo ? (
       <>
         Username: {userInfo.username} <br />
@@ -31,5 +31,5 @@ export default function User() {
         {userInfo.preferredFOC ?? "No Preferred Form of Communication"}
       </>
     ) : "Loading"}
-  </>
+  </div>
 }

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { User } = require('./../database')
+const { User } = require('../database')
 
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;

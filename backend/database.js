@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize')
+const { Sequelize, DataTypes, DATE } = require('sequelize')
 
 const { PG_HOST, PG_USER, PG_PW } = process.env
 
@@ -37,7 +37,28 @@ const User = sequelize.define('User', {
   }
 })
 
-module.exports.initDB = async () => {
+const Threads = sequelize.define('Threads', {
+  title: {
+    type: DataTypes.STRING
+  },
+  author: {
+    type: DataTypes.STRING
+  }
+})
+
+const ThreadReplies = sequelize.define('ThreadReplies', {
+  message: {
+    type: DataTypes.STRING
+  },
+  toThread: {
+    type: DataTypes.BIGINT
+  },
+  author: {
+    type: DataTypes.STRING
+  }
+})
+
+async function initDB() {
   try {
     await sequelize.authenticate()
     console.log('Connected to DB')
@@ -45,7 +66,12 @@ module.exports.initDB = async () => {
   } catch (e) {
     console.error('Unable to Connect to DB', e)
   }
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ alter: true });
 }
 
-module.exports.User = User;
+module.exports = {
+  User,
+  Threads,
+  ThreadReplies,
+  initDB 
+}
