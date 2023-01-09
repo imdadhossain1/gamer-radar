@@ -28,17 +28,18 @@ router.get('/:username', async(req, res) => {
   User.findOne({ where: { username: req.cookies.username }})
   .then(async(user) => {
     let newArray;
-    if(user.intProfiles?.length == 15) {
-      if(user.intProfiles[0] != user.username) {
+
+    if(user.intProfiles?.[0] != req.params.username) {
+      if(user.intProfiles?.length == 15) {
         user.intProfiles.pop();
         user.intProfiles.unshift([...user.username]) 
         await User.update({ intProfiles: newArray }, { where: { username: req.cookies.username }})
-      }
-    } else {
-      if(user.intProfiles?.length >= 1 && user.intProfiles[0]?.username == req.cookies.username) {
+      } else if(user.intProfiles?.length >= 1) {
         user.intProfiles.unshift([user.username])
         await User.update({ intProfiles: user.intProfiles }, { where: { username: req.cookies.username } })
-      }  
+      } else if (user.intProfiles == null) {
+        await User.update({ intProfiles: [req.params.username] }, { where: { username: req.cookies.username }})
+      }
     }
   })
 

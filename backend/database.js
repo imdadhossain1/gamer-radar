@@ -33,7 +33,7 @@ const User = sequelize.define('User', {
     type: DataTypes.ARRAY(DataTypes.BIGINT)
   },
   intProfiles: {
-    type: DataTypes.ARRAY(DataTypes.BIGINT)
+    type: DataTypes.ARRAY(DataTypes.STRING)
   }
 })
 
@@ -45,7 +45,7 @@ module.exports.initDB = async () => {
   } catch (e) {
     console.error('Unable to Connect to DB', e)
   }
-  await sequelize.sync();
+  await sequelize.sync({ force: true });
 }
 
 module.exports.User = User;
