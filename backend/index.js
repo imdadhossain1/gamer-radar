@@ -17,7 +17,9 @@ const sio = require('socket.io')(server)
 
 app.use(
   cors({
-    origin: 'http://localhost:3000'
+    origin: 'http://localhost:3000',
+    allowedHeaders: 'Content-Type',
+    credentials: true
   })
 )
 app.use(cookieParser())

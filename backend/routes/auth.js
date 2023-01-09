@@ -31,7 +31,7 @@ router.post('/login', async(req, res) => {
 
   const user = await User.findOne({ where: { username, password }})
   if(user?.username) {
-    res.cookie('username', username)
+    res.cookie('username', username, { httpOnly: false })
     return res.status(200).send()
   } else {
     return res.status(404).send()

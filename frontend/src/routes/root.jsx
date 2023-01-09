@@ -1,7 +1,8 @@
+import { useCookies } from "react-cookie";
+import { Navigate } from "react-router-dom";
+
+
 export default function Root() {
-  return (
-    <div>
-      Hi!
-    </div>
-  )
+  const [cookies, setCookie] = useCookies(['username']);
+  if(!cookies.username) return <Navigate to='/auth/login' />
 }
