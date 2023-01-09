@@ -24,7 +24,7 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING, // I am aware that Storing passwords as plain strings is usually a really bad idea
   },
   favoriteGameGenres: {
-    type: DataTypes.ARRAY(DataTypes.BIGINT)
+    type: DataTypes.ARRAY(DataTypes.STRING)
   },
   preferredFOC: {
     type: DataTypes.STRING

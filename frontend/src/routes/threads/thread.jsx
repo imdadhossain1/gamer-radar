@@ -8,7 +8,7 @@ export default function Thread() {
   const [title, setTitle] = useState('')
 
   const [message, setMessage] = useState('')
-  const [replies, setReplies] = useState(null)
+  const [replies, setReplies] = useState([])
 
   useEffect(() => {
     const socket = io('http://localhost:3001', { query: { id: `${id}` }})
@@ -23,6 +23,7 @@ export default function Thread() {
       const json = JSON.parse(await res.json())
       setTitle(json.title)
       setReplies(json.replies)
+      console.log(replies)
     })
 
     
@@ -30,7 +31,10 @@ export default function Thread() {
 
     console.log(socket)
 
-    socket.on('reply', console.log)
+    socket.on('reply', (reply) => {
+      console.log([...replies, reply])
+      setReplies([...replies, reply])
+    })
   }, [])
 
   function addReply() {
@@ -54,7 +58,7 @@ export default function Thread() {
 
       <input type='text' required onChange={(e) => setMessage(e.target.value)} id="inp-cre"></input>
       <button onClick={addReply}>Send</button>
-      {replies && 
+      {replies.length && 
       <>
         {replies.map(reply => {
           return <div className="reply-container" key={reply.id}>

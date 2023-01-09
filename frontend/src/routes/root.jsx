@@ -7,6 +7,7 @@ import User from "./user";
 import Threads from "./threads/index";
 import CreateThread from "./threads/create";
 import Thread from "./threads/thread";
+import Me from "./me";
 
 
 export default function Root() {
@@ -40,6 +41,7 @@ export default function Root() {
             <Route path="/threads/edit/:id" element={<CreateThread />} />
             <Route path="/threads/:id" element={<Thread />} />
           </Route>
+          <Route path="/me" element={<Me />} />
         </Routes>
       </div>
     </div>

@@ -43,6 +43,6 @@ router
     const { message } = req.body
     const { threadId } = req.params
     console.log('test')
-    await ThreadReplies.create({ message: message, toThread: threadId, author: req.cookies.username })
-    req.io.to(threadId).emit('reply', { message, author: req.cookies.username })
+    const reply = await ThreadReplies.create({ message: message, toThread: threadId, author: req.cookies.username })
+    req.io.to(threadId).emit('reply', reply)
   })

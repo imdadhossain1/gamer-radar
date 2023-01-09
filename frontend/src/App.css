@@ -80,3 +80,7 @@ button {
 .th {
   background-color: rgba(147, 153, 149, 0.4);
 }
+
+input {
+  color: black;
+}
