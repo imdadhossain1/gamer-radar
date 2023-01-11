@@ -19,7 +19,7 @@ The goal of GamerRadar is to provide a social network to find fellow gamers to l
 
 
 <h1> Technologies Used </h1>
-This site will be built using Sequelize on the backend and React, Javascript and CSS on the frontend. The site will be using Sequelize models and React components. Full CRUD operations (POST, GET, PUT, DELETE) will be implemented on the Threads model. The techonology used on this project not used in class was Websockets
+This site will be built using Sequelize on the backend and React, Javascript and CSS on the frontend. The site will be using Sequelize models and React components. Full CRUD operations (POST, GET, PUT, DELETE) will be implemented on the Threads model. The techonology used on this project not used in class was Websockets.
 
 <h1> Models </h1>
 
