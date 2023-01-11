@@ -19,22 +19,23 @@ The goal of GamerRadar is to provide a social network to find fellow gamers to l
 
 
 <h1> Technologies Used </h1>
-This site will be built using Django on the backend and React, Javascript and CSS on the frontend. The site will be using Django models and React components. Full CRUD operations (POST, GET, PUT, DELETE) will be implemented on at least one model.
+This site will be built using Sequelize on the backend and React, Javascript and CSS on the frontend. The site will be using Sequelize models and React components. Full CRUD operations (POST, GET, PUT, DELETE) will be implemented on the Threads model.
 
 <h1> Models </h1>
 
 - User
 - Genres
-- Reviews
-- Conversations
+- Threads
+- ThreadReplies
 
 <h1> Components </h1>
 
 - App.js
-- Header.jsx
-- Main.jsx
-- Genre.jsx
-- Games.jsx
+- Home.jsx
+- Me.jsx
+- Root.jsx
+- Threads.jsx
+- User.jsx
 - Connections.jsx
 
 <h2> Links </h2>
