@@ -58,7 +58,7 @@ export default function Me() {
         </div>
       })
     }
-    <p>Preffered Form of Communication</p>
+    <p>Preferred Form of Communication</p>
     <input value={foc} onChange={(e) => setFOC(e.target.value)} required/><br />
     <button onClick={set}>Set</button>
   </div>
