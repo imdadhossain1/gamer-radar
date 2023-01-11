@@ -9,15 +9,24 @@ export default function User() {
   const { user } = useParams()
 
   const [userInfo, setUserInfo] = useState(null)
+  const [availGen, setAvailGen] = useState([])
+  const [favGen, setFavGen] = useState(null)
+  const [notFound, setNotFound] = useState(false)
 
   useEffect(() => {
     if(cookies.username != user) {
       fetch(`http://localhost:3001/user/${user}`, {
       method: 'GET',
       credentials: 'include'
-    }).then((res) => res.json()).then((res) => {
-      console.log(res)
-      setUserInfo(res)
+    }).then(async (res) => {
+      if(res.status == 404) {
+        setNotFound(true)
+      }
+      let json = JSON.parse(await res.json())
+      setAvailGen(json.availableGenres)
+      setFavGen(json.favoriteGameGenres)
+      setUserInfo(json)
+      console.log(json)
     })
     }
   }, [])
@@ -27,9 +36,21 @@ export default function User() {
     {userInfo ? (
       <>
         Username: {userInfo.username} <br />
-        {userInfo.favoriteGamerGenres ?? "No Favorite Game Genres"} <br />
-        {userInfo.preferredFOC ?? "No Preferred Form of Communication"}
+
+        <br />
+
+        Favorite Game Genres: 
+        {userInfo.favoriteGameGenres ? 
+          favGen.map(v => {
+            if(availGen[v]) {
+              return <div key={v.genreId}>
+                <p>{availGen[v].name}</p>
+              </div>
+            }
+          })
+        : "No Favorite Game Genres"} <br />
+        Preferred form of communication: {userInfo.preferredFOC ?? "Not set"}
       </>
-    ) : "Loading"}
+    ) : notFound ? "User Not Found" : "Loading"}
   </div>
 }

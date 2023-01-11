@@ -9,6 +9,11 @@ import CreateThread from "./threads/create";
 import Thread from "./threads/thread";
 import Me from "./me";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faLink, faUser } from '@fortawesome/free-solid-svg-icons'
+import EditThread from "./threads/edit";
+import Connections from "./connections";
+
 
 export default function Root() {
   const [cookies, setCookie] = useCookies(['username']);
@@ -25,12 +30,7 @@ export default function Root() {
     
 
   if(isLoggedIn) {
-    return  <div>
-      <nav id="nav">
-        <NavLink to='me'>Me</NavLink>
-        <NavLink to='threads'>Threads</NavLink>
-        <NavLink to='connections'>Connections</NavLink>
-      </nav>
+    return  <>
       <div id="pages">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -38,13 +38,19 @@ export default function Root() {
           <Route path="/threads">
             <Route path="/threads/" element={<Threads />} />
             <Route path="/threads/create" element={<CreateThread />} />
-            <Route path="/threads/edit/:id" element={<CreateThread />} />
+            <Route path="/threads/edit/:id" element={<EditThread />} />
             <Route path="/threads/:id" element={<Thread />} />
           </Route>
           <Route path="/me" element={<Me />} />
+          <Route path="/connections" element={<Connections />} />
         </Routes>
+        <nav id="nav">
+          <NavLink to='threads'><FontAwesomeIcon icon={faBars} /></NavLink>
+          <NavLink to='connections'><FontAwesomeIcon icon={faLink} /></NavLink>
+          <NavLink to='me'><FontAwesomeIcon icon={faUser} /></NavLink>
+        </nav>
       </div>
-    </div>
+    </>
   } else if (!isLoggedIn && isLoggedIn != null) {
     return <Navigate to='/auth/login' />
   }

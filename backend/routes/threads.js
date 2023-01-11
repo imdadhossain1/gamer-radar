@@ -38,6 +38,7 @@ router
     const { id, title } = req.body
 
     await Threads.update({ title }, { where: { id }})
+    res.send(200)
   })
   .post('/:threadId', async(req, res) => {
     const { message } = req.body

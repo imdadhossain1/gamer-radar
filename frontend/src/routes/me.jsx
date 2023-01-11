@@ -5,6 +5,7 @@ export default function Me() {
   const [cookie] = useCookies(['username'])
 
   const [favGen, setFavGen] = useState([])
+  const [availableGenres, setAvGen] = useState([])
   const [foc, setFOC] = useState('')
 
   const [success, setSucces] = useState(false)
@@ -20,7 +21,9 @@ export default function Me() {
       res = JSON.parse(await res.json())
       setFavGen(res.favoriteGameGenres ?? [])
       setFOC(res.preferredFOC ?? '')
-      console.log(res)
+      setAvGen(res.availableGenres)
+      console.log(favGen)
+
     })
   }, [])
   
@@ -42,12 +45,19 @@ export default function Me() {
     })
   }
 
-  return <div id="me">
+  return <div id="me" className="page">
 
     {success && <p>Success!</p>}
 
     <p>Favorite Game Genres</p>
-    <input value={favGen.join(",")} onChange={(e) => setFavGen(e.target.value.split(",").filter(gen => gen))} required/>
+    { availableGenres[0] &&
+      availableGenres.map((val) => {
+        return <div key={val.genreId}>
+          <input type='checkbox' id={val.genreId}  checked={ favGen.findIndex(v => v == val.genreId ) != -1 } onChange={(e) => setFavGen(favGen.findIndex(v => v == val.genreId ) == -1 ? [...favGen, val.genreId] : favGen.filter(v => v != favGen[favGen.findIndex(v1 => v1 == val.genreId)] ))} />
+          <label htmlFor={val.genreId}>{val.name}</label>
+        </div>
+      })
+    }
     <p>Preffered Form of Communication</p>
     <input value={foc} onChange={(e) => setFOC(e.target.value)} required/><br />
     <button onClick={set}>Set</button>

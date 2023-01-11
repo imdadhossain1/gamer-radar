@@ -28,7 +28,7 @@ export default function CreateThread() {
     })
   }
 
-  return <div id="create-thread">
+  return <div id="create-thread" className="page">
     {id && <Navigate to={'/threads/' + id} />}
     <input type='text' onChange={(e) => setTitle(e.target.value)} required id="inp-cre"></input>
     <button onClick={createThread}>Create</button>

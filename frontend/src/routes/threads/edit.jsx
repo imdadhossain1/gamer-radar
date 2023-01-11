@@ -7,7 +7,7 @@ export default function EditThread() {
   const { id } = useParams()
   const [success, setSuccess] = useState(false)
 
-  function EditThread() {
+  function editThread() {
     fetch('http://localhost:3001/threads', {
       method: 'PATCH',
       headers: {
@@ -20,13 +20,14 @@ export default function EditThread() {
       credentials: 'include'
     })
     .then(async res => {
+      console.log(res)
       setSuccess(true)
     })
   }
 
-  return <div id="create-thread">
-    {id && <Navigate to={'/threads/' + id} />}
+  return <div id="create-thread" className="page">
+    {success && <Navigate to={'/threads/' + id} />}
     <input type='text' onChange={(e) => setTitle(e.target.value)} required id="inp-cre"></input>
-    <button onClick={EditThread}>Edit</button>
+    <button onClick={editThread}>Edit</button>
   </div>
 }

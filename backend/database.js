@@ -4,15 +4,22 @@ const { PG_HOST, PG_USER, PG_PW } = process.env
 
 const sequelize = new Sequelize(`postgres://${PG_USER}:${PG_PW}@${PG_HOST}/gamer-radar`)
 
+const genres = [
+  "Sandbox",
+  "Real-time strategy",
+  "Shooters",
+  "MOBA",
+  "Role-playing",
+  "Platformers",
+  "Rhythm Games"
+]
+
 const Genres = sequelize.define('Genres', {
-  id: {
-    type: DataTypes.BIGINT,
-    autoIncrement: true,
-    allowNull: false,
-    primaryKey: true
-  },
   name: {
     type: DataTypes.STRING
+  },
+  genreId: {
+    type: DataTypes.BIGINT
   }
 })
 
@@ -24,7 +31,7 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING, // I am aware that Storing passwords as plain strings is usually a really bad idea
   },
   favoriteGameGenres: {
-    type: DataTypes.ARRAY(DataTypes.STRING)
+    type: DataTypes.ARRAY(DataTypes.BIGINT)
   },
   preferredFOC: {
     type: DataTypes.STRING
@@ -67,11 +74,16 @@ async function initDB() {
     console.error('Unable to Connect to DB', e)
   }
   await sequelize.sync({ alter: true });
+  await Genres.destroy({ where: {}})
+  genres.forEach(async(genre, i) => {
+    await Genres.create({ name: genre, genreId: i })
+  })
 }
 
 module.exports = {
   User,
   Threads,
+  Genres,
   ThreadReplies,
   initDB 
 }

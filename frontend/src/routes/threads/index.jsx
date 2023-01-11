@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { NavLink } from "react-router-dom";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPencil, faPlus, faTrash,  } from '@fortawesome/free-solid-svg-icons'
+
 export default function Threads() {
 
   const [threads, setThreads] = useState([])
@@ -22,33 +25,31 @@ export default function Threads() {
     })
   }, [])
 
-  function deleteThread(e) {
+  function deleteThread(id) {
     fetch('http://localhost:3001/threads', {
       method: "DELETE",
       credentials: "include",
-      body: JSON.stringify({ id: e.target.id }),
+      body: JSON.stringify({ id }),
       headers: {
         'Content-Type': 'application/json'
       }
     }).then(res => {
-      setThreads(threads.filter(thread => thread.id != e.target.id ))
+      setThreads(threads.filter(thread => thread.id != id ))
     })
   }
 
-  function editThread() {
-
-  }
-
   return <div className="page">
-    <NavLink to='/threads/create'>
-      <button>Create Thread</button>
+    <NavLink to='/threads/create' id="create-th-btn">
+      <FontAwesomeIcon icon={faPlus} />
     </NavLink>
-    {threads.map((thread => {
-      return <div className="th" id={thread.id} key={thread.id}>
-        <NavLink to={'/threads/'+thread.id}><h3 id={thread.id}>{thread.title}</h3></NavLink>
-        { thread.author == cookies.username && <button onClick={deleteThread} id={thread.id}>Delete</button>}
-        { thread.author == cookies.username && <NavLink to={'/threads/edit/'+thread.id} ><button id={thread.id}>Edit</button></NavLink>}
-      </div>
-    }))}
+    <div id="threads">
+      {threads.map((thread => {
+        return <div className="th" id={thread.id} key={thread.id}>
+          <h3 className="thread-title" id={thread.id}><NavLink to={'/threads/'+thread.id}>{thread.title}</NavLink></h3>
+          { thread.author == cookies.username && <div onClick={() => deleteThread(thread.id)} id={thread.id} className="thread-control"><FontAwesomeIcon icon={faTrash} /></div>}
+          { thread.author == cookies.username && <NavLink to={'/threads/edit/'+thread.id} className="thread-control"><FontAwesomeIcon id={thread.id} icon={faPencil} /></NavLink>}
+        </div>
+      }))}
+    </div>
   </div>
 }
